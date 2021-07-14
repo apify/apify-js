@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import log from './utils_log';
+import { login } from './login/login';
 import { main, getEnv, call, callTask, metamorph, addWebhook } from './actor';
 import { Apify } from './apify';
 import { Configuration } from './configuration';
@@ -37,6 +38,7 @@ const exportedUtils = Object.assign(publicUtils, {
     playwright: playwrightUtils,
     social: socialUtils,
     log,
+    login,
     enqueueLinks,
     requestAsBrowser,
 });
