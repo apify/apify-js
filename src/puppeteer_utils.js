@@ -394,6 +394,8 @@ export const gotoExtended = async (page, request, gotoOptions = {}) => {
  *   If true, it will scroll up a bit after each scroll down. This is required on some websites for the scroll to work.
  * @param {string} [options.buttonSelector]
  *   Optionally checks and clicks a button if it appears while scrolling. This is required on some websites for the scroll to work.
+ * @param {function} [options.stopScrollCallback]
+ *   Expected to be an async function. If this function returns `true`, quit scrolling loop.
  * @returns {Promise<void>}
  * @memberOf puppeteer
  * @name infiniteScroll
@@ -405,9 +407,10 @@ export const infiniteScroll = async (page, options = {}) => {
         waitForSecs: ow.optional.number,
         scrollDownAndUp: ow.optional.boolean,
         buttonSelector: ow.optional.string,
+        stopScrollCallback: ow.optional.function,
     }));
 
-    const { timeoutSecs = 0, waitForSecs = 4, scrollDownAndUp = false, buttonSelector } = options;
+    const { timeoutSecs = 0, waitForSecs = 4, scrollDownAndUp = false, buttonSelector, stopScrollCallback } = options;
 
     let finished;
     const startTime = Date.now();
@@ -471,6 +474,11 @@ export const infiniteScroll = async (page, options = {}) => {
         }
         if (buttonSelector) {
             await maybeClickButton();
+        }
+        if (stopScrollCallback) {
+            if (await stopScrollCallback()) {
+                break;
+            }
         }
     }
 };
