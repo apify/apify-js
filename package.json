@@ -73,7 +73,7 @@
         "iconv-lite": "^0.6.2",
         "jquery": "^3.5.1",
         "mime-types": "^2.1.27",
-        "ow": "^0.23.0",
+        "ow": "^0.26.0",
         "semver": "^7.3.2",
         "socket.io": "^3.0.3",
         "stream-json": "^1.7.1",
