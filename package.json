@@ -129,7 +129,7 @@
         "sinon-stub-promise": "^4.0.0",
         "socket.io-client": "^3.0.3",
         "ts-jest": "^26.5.4",
-        "typescript": "4.2.3",
+        "typescript": "4.3.5",
         "ua-parser-js": "^0.7.22",
         "why-is-node-running": "^2.2.0"
     }
