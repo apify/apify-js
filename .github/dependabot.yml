@@ -1,0 +1,55 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - "> 12.12.42"
+  - dependency-name: "@types/node"
+    versions:
+    - ">= 13.a, < 14"
+  - dependency-name: "@types/sinon"
+    versions:
+    - 10.0.0
+  - dependency-name: socket.io
+    versions:
+    - 4.0.0
+    - 4.0.1
+  - dependency-name: sinon
+    versions:
+    - 10.0.0
+    - 10.0.1
+  - dependency-name: socket.io-client
+    versions:
+    - 4.0.0
+    - 4.0.1
+  - dependency-name: cheerio
+    versions:
+    - 1.0.0-rc.6
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
+    - 4.1.5
+    - 4.2.2
+    - 4.2.3
+    - 4.2.4
+  - dependency-name: playwright
+    versions:
+    - 1.10.0
+    - 1.8.0
+    - 1.8.1
+    - 1.9.0
+    - 1.9.1
+    - 1.9.2
+  - dependency-name: puppeteer
+    versions:
+    - 6.0.0
+    - 7.0.0
+    - 7.0.1
+    - 7.0.4
+    - 7.1.0
+    - 8.0.0
