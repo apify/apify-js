@@ -30,9 +30,10 @@ import { BrowserPlugin } from './browser_plugin'; // eslint-disable-line no-unus
  */
 export default class BrowserLauncher {
     static optionsShape = {
-        launcher: ow.object,
         proxyUrl: ow.optional.string.url,
         useChrome: ow.optional.boolean,
+        useIncognitoPages: ow.optional.boolean,
+        userDataDir: ow.optional.string,
         launchOptions: ow.optional.object,
     }
 
@@ -64,13 +65,12 @@ export default class BrowserLauncher {
     * All `BrowserLauncher` parameters are passed via an launchContext object.
     */
     constructor(launchContext) {
-        ow(launchContext, 'BrowserLauncherOptions', ow.object.exactShape(BrowserLauncher.optionsShape));
-
         const {
             launcher,
             proxyUrl,
             useChrome,
             launchOptions = {},
+            ...otherLaunchContextProps
         } = launchContext;
 
         this._validateProxyUrlProtocol(proxyUrl);
@@ -82,6 +82,7 @@ export default class BrowserLauncher {
         this.useChrome = useChrome;
         /** @type {Object<string, *>} */
         this.launchOptions = launchOptions;
+        this.otherLaunchContextProps = otherLaunchContextProps;
 
         /** @type {BrowserPlugin} */
         this.Plugin = null; // to be provided by child classes;
@@ -97,6 +98,7 @@ export default class BrowserLauncher {
             {
                 proxyUrl: this.proxyUrl,
                 launchOptions: this.createLaunchOptions(),
+                ...this.otherLaunchContextProps,
             },
         );
     }
@@ -108,10 +110,7 @@ export default class BrowserLauncher {
     async launch() {
         const plugin = this.createBrowserPlugin();
         const context = await plugin.createLaunchContext();
-
-        const browser = await plugin.launch(context);
-
-        return browser;
+        return plugin.launch(context);
     }
 
     /**

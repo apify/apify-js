@@ -147,7 +147,7 @@ describe('Apify.launchPuppeteer()', () => {
         let page;
 
         // Test headless parameter
-        process.env[ENV_VARS.HEADLESS] = false;
+        process.env[ENV_VARS.HEADLESS] = 0;
 
         return Apify.launchPuppeteer({
             launchOptions: { headless: true },
@@ -242,6 +242,40 @@ describe('Apify.launchPuppeteer()', () => {
                 },
                 launchOptions: { headless: true },
             });
+        } finally {
+            if (browser) await browser.close();
+        }
+    });
+
+    test('supports useIncognitoPages: true', async () => {
+        let browser;
+        try {
+            browser = await Apify.launchPuppeteer({
+                useIncognitoPages: true,
+                launchOptions: { headless: true },
+            });
+            const page1 = await browser.newPage();
+            const context1 = page1.browserContext();
+            const page2 = await browser.newPage();
+            const context2 = page2.browserContext();
+            expect(context1).not.toBe(context2);
+        } finally {
+            if (browser) await browser.close();
+        }
+    });
+
+    test('supports useIncognitoPages: false', async () => {
+        let browser;
+        try {
+            browser = await Apify.launchPuppeteer({
+                useIncognitoPages: false,
+                launchOptions: { headless: true },
+            });
+            const page1 = await browser.newPage();
+            const context1 = page1.browserContext();
+            const page2 = await browser.newPage();
+            const context2 = page2.browserContext();
+            expect(context1).toBe(context2);
         } finally {
             if (browser) await browser.close();
         }
