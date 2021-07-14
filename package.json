@@ -118,7 +118,7 @@
         "fpcollect": "^1.0.4",
         "fpscanner": "^0.1.5",
         "jest": "^26.6.3",
-        "jest-circus": "^26.6.3",
+        "jest-circus": "^27.0.6",
         "playwright": "1.11.1",
         "portastic": "^1.0.1",
         "prettier": "^2.1.2",
