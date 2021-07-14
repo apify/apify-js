@@ -123,7 +123,7 @@
         "portastic": "^1.0.1",
         "prettier": "^2.1.2",
         "proxy": "^1.0.2",
-        "puppeteer": "9.1.1",
+        "puppeteer": "10.1.0",
         "rimraf": "^3.0.2",
         "sinon": "^9.2.0",
         "sinon-stub-promise": "^4.0.0",
